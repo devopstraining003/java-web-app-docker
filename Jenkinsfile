@@ -1,6 +1,6 @@
 node{
     def buildNumber = BUILD_NUMBER
-    stage('GIT CLONE'){
+    stage('GIT CHECKOUT'){
         git url: 'https://github.com/devopstraining003/java-web-app-docker.git',branch:'master'
     }
     
