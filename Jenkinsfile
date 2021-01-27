@@ -28,4 +28,11 @@ node{
     stage('REMOVE DOCKER IMAGE'){
         sh "docker rmi devopstraining003/java-web-app:${buildNumber}"
     }
+    
+    stage("Deploy to Server"){
+        sshagent(['Deploy_SSH']) {
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.28.33 docker rm -f java-web-app || true"
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.28.33 docker run  -d -p 8080:8080 --name java-web-app devopstraining003/java-web-app:${buildNumber}"
+        }    
+    }
 }
